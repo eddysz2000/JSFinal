@@ -1,12 +1,24 @@
 //creamos el modulo Calculadora para que contenga la logica
 var Calculadora = (function(){
+
+	var textoFijo = "hola ";
+
+	function concatenarTexto(nombre){
+		return textoFijo+nombre;
+	}
+
 	return {
-		sumar: function(numero){
-			return numero;
+		mensaje: function(nombre){
+			var mensaje = concatenarTexto(nombre);
+			console.log(mensaje);
 		}
 	};
 })();
 
+document.getElementById('9').onclick=Calculadora.mensaje(9);
+
+/*
+document.getElementById('9').onclick=teclaPresionada;
 
 //funcion captura de datos del teclado
 function teclado(event){
@@ -20,3 +32,5 @@ function teclado(event){
 }
 //listener para capturar datos del teclado
 document.onkeypress=teclado;
+
+*/
