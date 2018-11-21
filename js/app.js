@@ -1,21 +1,26 @@
 //creamos el modulo Calculadora para que contenga la logica
 var Calculadora = (function(){
 
-	var textoFijo = "hola ";
+	var nueve = document.getElementById('9');
+	var pantalla = document.getElementById('display');
 
-	function concatenarTexto(nombre){
-		return textoFijo+nombre;
-	}
+	nueve.addEventListener('click',function(){
+		pantalla.textContent+=9;
+	})
 
-	return {
-		mensaje: function(nombre){
-			var mensaje = concatenarTexto(nombre);
-			console.log(mensaje);
-		}
-	};
+	nueve.addEventListener('mousedown',function(){
+		nueve.setAttribute('style','transform:scale(0.85,0.85)')
+	})
+
+	nueve.addEventListener('mouseout',function(){
+        nueve.setAttribute('style','transform:scale(1,1)')
+    })
+
+
+
+
 })();
 
-document.getElementById('9').onclick=Calculadora.mensaje(9);
 
 /*
 document.getElementById('9').onclick=teclaPresionada;
