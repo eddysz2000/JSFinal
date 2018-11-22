@@ -2,6 +2,7 @@
 var Calculadora = (function(){
 
 	var operaciones='';
+	var numero=0;
 	var cero = document.getElementById('0');
 	var uno = document.getElementById('1');
 	var dos = document.getElementById('2');
@@ -12,25 +13,28 @@ var Calculadora = (function(){
 	var siete = document.getElementById('7');
 	var ocho = document.getElementById('8');
 	var nueve = document.getElementById('9');
+	var on = document.getElementById('on');
+	var signo = document.getElementById('sign');
 	var pantalla = document.getElementById('display');
 
-	
-	
 	cero.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=0;
 		}else if (pantalla.textContent.length<8&&pantalla.textContent!='0'){
 			pantalla.textContent+=0;
+			numero = numero*10;
 		}
 	})
 
 	uno.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=1;
+			numero = 1;
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=1;
+			numero = numero*10+1;
 		}
-		
+
 	})
 
 	dos.addEventListener('click',function(){
@@ -39,7 +43,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=2;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
 	})
 
 	tres.addEventListener('click',function(){
@@ -48,7 +52,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=3;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
 	})
 
 	cuatro.addEventListener('click',function(){
@@ -57,7 +61,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=4;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
 	})
 
 	cinco.addEventListener('click',function(){
@@ -66,7 +70,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=5;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);;
 	})
 
 	seis.addEventListener('click',function(){
@@ -75,7 +79,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=6;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
 	})
 
 	siete.addEventListener('click',function(){
@@ -84,7 +88,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=7;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
 	})
 
 	ocho.addEventListener('click',function(){
@@ -93,7 +97,7 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=8;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
 	})
 
 	nueve.addEventListener('click',function(){
@@ -102,7 +106,25 @@ var Calculadora = (function(){
 		}else if (pantalla.textContent.length<8){
 			pantalla.textContent+=9;
 		}
-		
+		numero = Number(pantalla.textContent.innerText);
+	})
+
+	on.addEventListener('click',function(){
+		pantalla.textContent.length=0;
+		pantalla.textContent=0;
+	})
+
+	signo.addEventListener('click',function(){
+		if(pantalla.textContent!='0'){
+			if(pantalla.textContent[0]!='-'){
+				pantalla.textContent=('-'+pantalla.textContent);
+				numero = Number(pantalla.textContent.innerText)*(-1);
+			}else{
+				numero = Number(pantalla.textContent.innerText)*(-1);
+				pantalla.textContent=numero;
+			}
+			
+		}
 	})
 
 	cero.addEventListener('mousedown',function(){
@@ -185,7 +207,18 @@ var Calculadora = (function(){
         nueve.setAttribute('style','transform:scale(1,1)')
     })
 
+    on.addEventListener('mousedown',function(){
+		on.setAttribute('style','transform:scale(0.85,0.85)')
+	})
 
+	on.addEventListener('mouseout',function(){
+        on.setAttribute('style','transform:scale(1,1)')
+    })
+
+	return{
+		pantallap: pantalla,
+		numerop: numero
+	}
 
 
 })();
