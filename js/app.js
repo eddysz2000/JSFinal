@@ -2,7 +2,8 @@
 var Calculadora = (function(){
 
 	var operaciones='';
-	var numero=0;
+	var numero = 0;
+	var isSign = false;
 	var cero = document.getElementById('0');
 	var uno = document.getElementById('1');
 	var dos = document.getElementById('2');
@@ -20,9 +21,10 @@ var Calculadora = (function(){
 	cero.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=0;
-		}else if (pantalla.textContent.length<8&&pantalla.textContent!='0'){
+		}else if (!isSign&&pantalla.textContent.length<8&&pantalla.textContent!='0'){
 			pantalla.textContent+=0;
-			numero = numero*10;
+		}else if (isSign&&pantalla.textContent.length<9&&pantalla.textContent!='0'){
+			pantalla.textContent+=0;
 		}
 	})
 
@@ -30,9 +32,10 @@ var Calculadora = (function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=1;
 			numero = 1;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
 			pantalla.textContent+=1;
-			numero = numero*10+1;
+		}else if (isSign&&pantalla.textContent.length<9){
+			pantalla.textContent+=1;
 		}
 
 	})
@@ -40,91 +43,113 @@ var Calculadora = (function(){
 	dos.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=2;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=2;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=2;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	tres.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=3;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=3;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=3;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	cuatro.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=4;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=4;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=4;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	cinco.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=5;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=5;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=5;
 		}
-		numero = Number(pantalla.textContent.innerText);;
+
 	})
 
 	seis.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=6;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=6;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=6;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	siete.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=7;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=7;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=7;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	ocho.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=8;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=8;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=8;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	nueve.addEventListener('click',function(){
 		if(pantalla.textContent=='0'){
 			pantalla.textContent=9;
-		}else if (pantalla.textContent.length<8){
+		}else if (!isSign&&pantalla.textContent.length<8){
+			pantalla.textContent+=9;
+		}else if (isSign&&pantalla.textContent.length<9){
 			pantalla.textContent+=9;
 		}
-		numero = Number(pantalla.textContent.innerText);
+
 	})
 
 	on.addEventListener('click',function(){
 		pantalla.textContent.length=0;
 		pantalla.textContent=0;
+		isSign=false;
 	})
 
 	signo.addEventListener('click',function(){
-		if(pantalla.textContent!='0'){
-			if(pantalla.textContent[0]!='-'){
-				pantalla.textContent=('-'+pantalla.textContent);
-				numero = Number(pantalla.textContent.innerText)*(-1);
-			}else{
-				numero = Number(pantalla.textContent.innerText)*(-1);
-				pantalla.textContent=numero;
-			}
-			
+		
+		//activa el signo solo si el contenido es diferente de CERO
+		if(pantalla.textContent!=0){
+			isSign = !isSign;
 		}
+
+		//agrega el signo si se activa y el contenido es diferente de cero, la alternativa es si el signo se desactiva
+		if(isSign&&pantalla.textContent!=0){
+			pantalla.textContent='-'+pantalla.textContent;
+	
+		}else if(!isSign&&pantalla.textContent!=0) {
+			pantalla.textContent=pantalla.textContent.slice(1,pantalla.textContent.length);
+	
+		}
+	
 	})
 
 	cero.addEventListener('mousedown',function(){
@@ -215,10 +240,15 @@ var Calculadora = (function(){
         on.setAttribute('style','transform:scale(1,1)')
     })
 
-	return{
-		pantallap: pantalla,
-		numerop: numero
-	}
+    signo.addEventListener('mousedown',function(){
+		signo.setAttribute('style','transform:scale(0.85,0.85)')
+	})
+
+	signo.addEventListener('mouseout',function(){
+        signo.setAttribute('style','transform:scale(1,1)')
+    })
+
+
 
 
 })();
