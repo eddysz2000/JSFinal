@@ -24,10 +24,11 @@ var Calculadora = (function(){
 	var pantalla = document.getElementById('display');
 	var suma = document.getElementById('mas');
 	var resta = document.getElementById('menos');
+	var multiplica = document.getElementById('por');
 	var igual = document.getElementById('igual');
 
 	
-	//funciones para agregar los numeros, se considera un digito mas en caso se tenga el signo activo y uno mas si hay punto decimal
+	//funciones para agregar los numeros en pantalla, se considera un digito mas en caso se tenga el signo negativo activo y uno mas si hay punto decimal
 	cero.addEventListener('click',function(){
 		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=0;
@@ -259,6 +260,27 @@ var Calculadora = (function(){
 		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
 	})
 
+	//funcion que agrega la operacion de multiplicacion
+	multiplica.addEventListener('click',function(){
+		//alert('I: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
+			if(repetir||!isEjecutado){
+				acumulador = Number(pantalla.textContent);
+			}else {
+				acumulador = acumulador * ultimo;
+			}
+			
+			pantalla.textContent='';
+			operador = '*';
+			repetir = false;
+			//alert('II: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		}
+		isSign=false;
+		isPunto=false;
+		isEjecutado=false;
+		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+	})
+
 	//funcion para calcular el resultado final, puede repetir la ultima operacion realizada
 	igual.addEventListener('click',function(){
 		//alert('IV: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
@@ -276,6 +298,11 @@ var Calculadora = (function(){
 			case '-':
 				repetir = true;
 				acumulador = acumulador - ultimo;
+				pantalla.textContent = Math.round((acumulador) * 100) / 100;
+			break;
+			case '*':
+				repetir = true;
+				acumulador = acumulador * ultimo;
 				pantalla.textContent = Math.round((acumulador) * 100) / 100;
 			break;
 		}
@@ -402,6 +429,22 @@ var Calculadora = (function(){
 
 	suma.addEventListener('mouseout',function(){
         suma.setAttribute('style','transform:scale(1,1)')
+    })
+
+    resta.addEventListener('mousedown',function(){
+		resta.setAttribute('style','transform:scale(0.85,0.85)')
+	})
+
+	resta.addEventListener('mouseout',function(){
+        resta.setAttribute('style','transform:scale(1,1)')
+    })
+
+    multiplica.addEventListener('mousedown',function(){
+		multiplica.setAttribute('style','transform:scale(0.85,0.85)')
+	})
+
+	multiplica.addEventListener('mouseout',function(){
+        multiplica.setAttribute('style','transform:scale(1,1)')
     })
 
     igual.addEventListener('mousedown',function(){
