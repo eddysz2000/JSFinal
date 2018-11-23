@@ -5,6 +5,7 @@ var Calculadora = (function(){
 	var ultimo = 0;
 	var isSign = false;
 	var isPunto = false;
+	var isEjecutado = false;
 	var repetir = false;
 	var operador = '';
 	var cero = document.getElementById('0');
@@ -22,12 +23,13 @@ var Calculadora = (function(){
 	var signo = document.getElementById('sign');
 	var pantalla = document.getElementById('display');
 	var suma = document.getElementById('mas');
+	var resta = document.getElementById('menos');
 	var igual = document.getElementById('igual');
 
 	
 	//funciones para agregar los numeros, se considera un digito mas en caso se tenga el signo activo y uno mas si hay punto decimal
 	cero.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=0;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8&&pantalla.textContent!='0'){
 			pantalla.textContent+=0;
@@ -42,7 +44,7 @@ var Calculadora = (function(){
 	})
 
 	uno.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=1;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=1;
@@ -57,7 +59,7 @@ var Calculadora = (function(){
 	})
 
 	dos.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=2;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=2;
@@ -72,7 +74,7 @@ var Calculadora = (function(){
 	})
 
 	tres.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=3;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=3;
@@ -87,7 +89,7 @@ var Calculadora = (function(){
 	})
 
 	cuatro.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=4;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=4;
@@ -102,7 +104,7 @@ var Calculadora = (function(){
 	})
 
 	cinco.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=5;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=5;
@@ -117,7 +119,7 @@ var Calculadora = (function(){
 	})
 
 	seis.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=6;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=6;
@@ -132,7 +134,7 @@ var Calculadora = (function(){
 	})
 
 	siete.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=7;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=7;
@@ -147,7 +149,7 @@ var Calculadora = (function(){
 	})
 
 	ocho.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=8;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=8;
@@ -162,7 +164,7 @@ var Calculadora = (function(){
 	})
 
 	nueve.addEventListener('click',function(){
-		if(pantalla.textContent=='0'){
+		if(pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=9;
 		}else if (!isSign&&!isPunto&&pantalla.textContent.length<8){
 			pantalla.textContent+=9;
@@ -178,7 +180,7 @@ var Calculadora = (function(){
 
 	//funcion que controla el punto decimal
 	punto.addEventListener('click',function(){
-		if(!isPunto&&pantalla.textContent=='0'){
+		if(!isPunto&&pantalla.textContent=='0'||isEjecutado){
 			pantalla.textContent=0+'.';
 		}else if (!isPunto&&pantalla.textContent!=0) {
 			pantalla.textContent+='.';
@@ -192,6 +194,7 @@ var Calculadora = (function(){
 		pantalla.textContent=0;
 		isSign=false;
 		isPunto=false;
+		isEjecutado=false;
 		acumulador=0;
 		ultimo=0;
 		operador='';
@@ -219,7 +222,7 @@ var Calculadora = (function(){
 	suma.addEventListener('click',function(){
 		//alert('I: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
 		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
-			if(repetir){
+			if(repetir||!isEjecutado){
 				acumulador = Number(pantalla.textContent);
 			}else{
 				acumulador = acumulador + ultimo;
@@ -231,6 +234,28 @@ var Calculadora = (function(){
 		}
 		isSign=false;
 		isPunto=false;
+		isEjecutado=false;
+		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+	})
+
+	//funcion que agrega la operacion de resta
+	resta.addEventListener('click',function(){
+		//alert('I: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
+			if(repetir||!isEjecutado){
+				acumulador = Number(pantalla.textContent);
+			}else {
+				acumulador = acumulador - ultimo;
+			}
+			
+			pantalla.textContent='';
+			operador = '-';
+			repetir = false;
+			//alert('II: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		}
+		isSign=false;
+		isPunto=false;
+		isEjecutado=false;
 		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
 	})
 
@@ -244,13 +269,24 @@ var Calculadora = (function(){
 		//alert('V: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
 		switch (operador){
 			case '+':
-			repetir = true;
-			acumulador = acumulador + ultimo;
-			pantalla.textContent = acumulador;
+				repetir = true;
+				acumulador = acumulador + ultimo;
+				pantalla.textContent = Math.round((acumulador) * 100) / 100;
+			break;
+			case '-':
+				repetir = true;
+				acumulador = acumulador - ultimo;
+				pantalla.textContent = Math.round((acumulador) * 100) / 100;
 			break;
 		}
-		isSign=false;
+		
+		if (acumulador<=0){
+			isSign=true;
+		}else{
+			isSign=false;
+		}
 		isPunto=false;
+		isEjecutado=true;
 		//alert('VI: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
 	})
 
