@@ -2,6 +2,7 @@
 var Calculadora = (function(){
 
 	var acumulador = 0;
+	var cadenaAcumulador ='';
 	var ultimo = 0;
 	var isSign = false;
 	var isPunto = false;
@@ -25,6 +26,7 @@ var Calculadora = (function(){
 	var suma = document.getElementById('mas');
 	var resta = document.getElementById('menos');
 	var multiplica = document.getElementById('por');
+	var divide = document.getElementById('dividido')
 	var igual = document.getElementById('igual');
 
 	
@@ -42,6 +44,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=0;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	uno.addEventListener('click',function(){
@@ -57,6 +60,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=1;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	dos.addEventListener('click',function(){
@@ -72,6 +76,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=2;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	tres.addEventListener('click',function(){
@@ -87,6 +92,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=3;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	cuatro.addEventListener('click',function(){
@@ -102,6 +108,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=4;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	cinco.addEventListener('click',function(){
@@ -117,6 +124,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=5;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	seis.addEventListener('click',function(){
@@ -132,6 +140,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=6;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	siete.addEventListener('click',function(){
@@ -147,6 +156,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=7;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	ocho.addEventListener('click',function(){
@@ -162,6 +172,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=8;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	nueve.addEventListener('click',function(){
@@ -177,6 +188,7 @@ var Calculadora = (function(){
 			pantalla.textContent+=9;
 		}
 		ultimo = Number(pantalla.textContent);
+		isEjecutado=false
 	})
 
 	//funcion que controla el punto decimal
@@ -189,7 +201,7 @@ var Calculadora = (function(){
 		isPunto=true;
 	})
 
-	//funcion de borrado de memoria, tambien desactiva el signo y el punto e inicializa variables
+	//funcion de borrado de memoria, tambien desactiva el signo y el punto e inicializa variables de control
 	on.addEventListener('click',function(){
 		pantalla.textContent.length=0;
 		pantalla.textContent=0;
@@ -221,7 +233,7 @@ var Calculadora = (function(){
 
 	//funcion que agrega la operacion de suma
 	suma.addEventListener('click',function(){
-		//alert('I: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
 		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
 			if(repetir||!isEjecutado){
 				acumulador = Number(pantalla.textContent);
@@ -231,17 +243,17 @@ var Calculadora = (function(){
 			pantalla.textContent='';
 			operador = '+';
 			repetir = false;
-			//alert('II: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+			
 		}
 		isSign=false;
 		isPunto=false;
 		isEjecutado=false;
-		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
 	})
 
 	//funcion que agrega la operacion de resta
 	resta.addEventListener('click',function(){
-		//alert('I: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
 		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
 			if(repetir||!isEjecutado){
 				acumulador = Number(pantalla.textContent);
@@ -252,17 +264,17 @@ var Calculadora = (function(){
 			pantalla.textContent='';
 			operador = '-';
 			repetir = false;
-			//alert('II: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+			
 		}
 		isSign=false;
 		isPunto=false;
 		isEjecutado=false;
-		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
 	})
 
 	//funcion que agrega la operacion de multiplicacion
 	multiplica.addEventListener('click',function(){
-		//alert('I: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
 		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
 			if(repetir||!isEjecutado){
 				acumulador = Number(pantalla.textContent);
@@ -273,52 +285,92 @@ var Calculadora = (function(){
 			pantalla.textContent='';
 			operador = '*';
 			repetir = false;
-			//alert('II: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+			
 		}
 		isSign=false;
 		isPunto=false;
 		isEjecutado=false;
-		//alert('III: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
+	})
+
+	//funcion que agrega la operacion de division
+	divide.addEventListener('click',function(){
+		
+		if (pantalla.textContent!=0&&pantalla.textContent!='0.'){
+			if(repetir||!isEjecutado){
+				acumulador = Number(pantalla.textContent);
+			}else {
+				acumulador = acumulador / ultimo;
+			}
+			
+			pantalla.textContent='';
+			operador = '/';
+			repetir = false;
+			
+		}
+		isSign=false;
+		isPunto=false;
+		isEjecutado=false;
+		
 	})
 
 	//funcion para calcular el resultado final, puede repetir la ultima operacion realizada
 	igual.addEventListener('click',function(){
-		//alert('IV: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
+		//validacion por si se esta volviendo a presioanr el boton IGUAL
 		if(!repetir){
 			ultimo = Number(pantalla.textContent);
 		}
 
-		//alert('V: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
 		switch (operador){
 			case '+':
-				repetir = true;
 				acumulador = acumulador + ultimo;
-				pantalla.textContent = Math.round((acumulador) * 100) / 100;
 			break;
 			case '-':
-				repetir = true;
 				acumulador = acumulador - ultimo;
-				pantalla.textContent = Math.round((acumulador) * 100) / 100;
 			break;
 			case '*':
-				repetir = true;
 				acumulador = acumulador * ultimo;
-				pantalla.textContent = Math.round((acumulador) * 100) / 100;
+			break;
+			case '/':
+				acumulador = acumulador / ultimo;
 			break;
 		}
+		if (acumulador>99999999) {
+			pantalla.textContent='Error, max';
+		}else{
+			cadenaAcumulador = String(Math.round((acumulador) * 10000000) / 10000000);
+			
+			//formateo del resultado segun sea el tipo de resultado
+			if (cadenaAcumulador.length>10) {
+				if (acumulador<0&&!isPunto) {
+					cadenaAcumulador=cadenaAcumulador.slice(1,9);
+				}else if (acumulador<0&&isPunto) {
+					cadenaAcumulador=cadenaAcumulador.slice(1,10);
+				}else if (acumulador>0&&!isPunto) {
+					cadenaAcumulador=cadenaAcumulador.slice(1,8);
+				}else if (acumulador>0&&isPunto) {
+					cadenaAcumulador=cadenaAcumulador.slice(1,9);
+				}
+			}
+			
+			pantalla.textContent = cadenaAcumulador;
+		}
+		
 		
 		if (acumulador<=0){
 			isSign=true;
 		}else{
 			isSign=false;
 		}
+		repetir = true;
 		isPunto=false;
 		isEjecutado=true;
-		//alert('VI: el ultimo numero: '+ultimo+' el acumulador: '+acumulador+' el operador es:'+operador);
+		
 	})
 
 
-
+	//cambio de estilo al momento de presionar los botones
 	cero.addEventListener('mousedown',function(){
 		cero.setAttribute('style','transform:scale(0.85,0.85)')
 	})
@@ -445,6 +497,14 @@ var Calculadora = (function(){
 
 	multiplica.addEventListener('mouseout',function(){
         multiplica.setAttribute('style','transform:scale(1,1)')
+    })
+
+    divide.addEventListener('mousedown',function(){
+		divide.setAttribute('style','transform:scale(0.85,0.85)')
+	})
+
+	divide.addEventListener('mouseout',function(){
+        divide.setAttribute('style','transform:scale(1,1)')
     })
 
     igual.addEventListener('mousedown',function(){
